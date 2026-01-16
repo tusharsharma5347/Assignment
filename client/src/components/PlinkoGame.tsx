@@ -5,7 +5,7 @@ import { GameStats } from './GameStats';
 import { SoundManager } from './SoundManager';
 import './PlinkoGame.css';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const API_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:3000').replace(/\/$/, '');
 
 interface Round {
   id: string;
@@ -97,7 +97,7 @@ export function PlinkoGame() {
     const handleKeyPress = (e: KeyboardEvent) => {
       typed += e.key.toLowerCase();
       if (typed.length > 20) typed = typed.slice(-20);
-      
+
       if (typed.includes('opensesame')) {
         setSecretTheme(prev => !prev);
         typed = '';
@@ -114,12 +114,12 @@ export function PlinkoGame() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
       });
-      
+
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
         throw new Error(errorData.error || `Server error: ${response.status}`);
       }
-      
+
       const data = await response.json();
       // Map roundId to id to match the Round interface
       setRound({
@@ -143,17 +143,17 @@ export function PlinkoGame() {
       }
       return;
     }
-    
+
     if (!round.id) {
       console.error('Round missing id:', round);
       alert('Round data is invalid. Please start a new round.');
       return;
     }
-    
+
     const seed = clientSeed || `client-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-    
+
     setIsDropping(true);
-    
+
     try {
       // Start the round
       const startResponse = await fetch(`${API_BASE}/api/rounds/${round.id}/start`, {
@@ -172,7 +172,7 @@ export function PlinkoGame() {
       }
 
       const startData = await startResponse.json();
-      
+
       // Update round with results
       const updatedRound = {
         ...round,
@@ -183,7 +183,7 @@ export function PlinkoGame() {
 
       // Wait for animation to complete (handled by PlinkoBoard)
       // The board will call onAnimationComplete when done
-      
+
     } catch (error) {
       console.error('Failed to drop ball:', error);
       const errorMessage = error instanceof Error ? error.message : 'Failed to drop ball. Please try again.';
@@ -208,12 +208,12 @@ export function PlinkoGame() {
       });
 
       if (revealResponse.ok) {
-        const revealData = await revealResponse.json();
+        await revealResponse.json();
         const finalRound = await fetch(`${API_BASE}/api/rounds/${currentRound.id}`).then(r => r.json());
-        
+
         setRound(finalRound);
         setGameHistory(prev => [finalRound, ...prev.slice(0, 19)]);
-        
+
         if (finalRound.binIndex !== undefined) {
           lastThreeBinsRef.current.push(finalRound.binIndex);
           if (lastThreeBinsRef.current.length > 3) {

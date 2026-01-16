@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { PlinkoGame } from './components/PlinkoGame';
 import { Verifier } from './components/Verifier';
 import './App.css';
@@ -11,13 +11,13 @@ function App() {
   return (
     <div className="app">
       <nav className="nav">
-        <button 
+        <button
           className={view === 'game' ? 'active' : ''}
           onClick={() => setView('game')}
         >
           Play Plinko
         </button>
-        <button 
+        <button
           className={view === 'verifier' ? 'active' : ''}
           onClick={() => setView('verifier')}
         >

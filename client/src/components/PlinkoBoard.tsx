@@ -32,7 +32,7 @@ export function PlinkoBoard({
   onPegCollision,
 }: PlinkoBoardProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationFrameRef = useRef<number>();
+  const animationFrameRef = useRef<number>(null);
   const onCompleteRef = useRef(onAnimationComplete);
   const onPegRef = useRef(onPegCollision);
   const [ballPos, setBallPos] = useState<{ x: number; y: number } | null>(null);
@@ -134,7 +134,7 @@ export function PlinkoBoard({
           ballPos.y,
           BALL_RADIUS
         );
-        
+
         if (goldenBall) {
           gradient.addColorStop(0, '#ffd700');
           gradient.addColorStop(0.5, '#ffed4e');
@@ -144,7 +144,7 @@ export function PlinkoBoard({
           gradient.addColorStop(0.5, '#e0e0e0');
           gradient.addColorStop(1, '#b0b0b0');
         }
-        
+
         ctx.fillStyle = gradient;
         ctx.beginPath();
         ctx.arc(ballPos.x, ballPos.y, BALL_RADIUS, 0, Math.PI * 2);
@@ -175,14 +175,14 @@ export function PlinkoBoard({
     // Capture current values at effect start
     const currentPath = path || [];
     const currentBinIndex = binIndex;
-    
+
     // Don't start animation if not dropping or path not ready
     if (!isDropping) {
       setBallPos(null);
       setCurrentRow(-1);
       return;
     }
-    
+
     // Wait for path to be available
     if (currentPath.length === 0) {
       return;
@@ -210,7 +210,7 @@ export function PlinkoBoard({
 
     const animate = (timestamp: number) => {
       if (animationStopped) return;
-      
+
       frameCount++;
       // Safety check - if we've been animating for too long, force completion
       if (frameCount > 1000) {
@@ -279,7 +279,7 @@ export function PlinkoBoard({
       // Moving through rows
       const targetRow = rowIndex;
       const targetY = 100 + targetRow * ROW_SPACING;
-      
+
       // Check if we've passed this row - if so, advance
       if (currentY >= targetY + 15) {
         // Apply path decision
@@ -294,11 +294,11 @@ export function PlinkoBoard({
       }
 
       const rowPegs = pegPositions.filter(p => p.row === targetRow);
-      
+
       // Find current peg based on position
       const currentPegIndex = Math.min(pos, targetRow);
       const targetPeg = rowPegs[currentPegIndex];
-      
+
       if (!targetPeg) {
         // No peg found, just move down
         currentY += 4;
