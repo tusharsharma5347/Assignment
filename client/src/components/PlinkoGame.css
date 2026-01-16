@@ -1,0 +1,138 @@
+.plinko-game {
+  width: 100%;
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.game-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent), #9f7aea);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-controls {
+  display: flex;
+  gap: 1rem;
+}
+
+.mute-toggle {
+  background: var(--bg-secondary);
+  border: 1px solid var(--accent);
+  color: var(--text-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: all 0.2s;
+}
+
+.mute-toggle:hover {
+  background: var(--accent);
+  transform: scale(1.1);
+}
+
+.game-layout {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 2rem;
+  align-items: start;
+}
+
+.game-board-container {
+  background: var(--bg-secondary);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.game-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.easter-egg-indicators {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.indicator {
+  background: var(--bg-secondary);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--accent);
+  font-size: 0.9rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* Tilt Mode */
+.tilt-mode .game-board-container {
+  transform: rotate(5deg);
+  filter: sepia(0.3) contrast(1.2) brightness(0.9);
+  transition: transform 0.3s, filter 0.3s;
+}
+
+.tilt-mode .game-board-container:nth-child(odd) {
+  transform: rotate(-5deg);
+}
+
+/* Secret Theme */
+.secret-theme {
+  background: linear-gradient(135deg, #1a0a0e, #0a0a1a);
+}
+
+.secret-theme .game-board-container {
+  background: linear-gradient(135deg, #2a1a1e, #1a1a2a);
+  box-shadow: 0 0 30px rgba(255, 200, 0, 0.3);
+}
+
+.secret-theme .peg {
+  box-shadow: 0 0 10px rgba(255, 200, 0, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .game-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .game-sidebar {
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .game-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .game-board-container {
+    padding: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tilt-mode .game-board-container {
+    transform: none;
+  }
+  
+  .indicator {
+    animation: none;
+  }
+}
+

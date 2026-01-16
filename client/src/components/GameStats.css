@@ -1,0 +1,105 @@
+.game-stats {
+  background: var(--bg-secondary);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.game-stats h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+.current-round,
+.paytable,
+.history {
+  margin-bottom: 2rem;
+}
+
+.current-round h3,
+.paytable h3,
+.history h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.stat-label {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.stat-value {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.stat-value.highlight {
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+.stat-value.success {
+  color: var(--success);
+}
+
+.stat-value.error {
+  color: var(--error);
+}
+
+.stat-value.small {
+  font-size: 0.75rem;
+  font-family: monospace;
+  word-break: break-all;
+}
+
+.paytable-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+  gap: 0.5rem;
+}
+
+.paytable-item {
+  background: var(--bg-primary);
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.paytable-item.active {
+  border-color: var(--accent);
+  background: rgba(74, 158, 255, 0.2);
+  box-shadow: 0 0 10px rgba(74, 158, 255, 0.3);
+}
+
+.paytable-bin {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.paytable-mult {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .paytable-grid {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
+
